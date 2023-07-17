@@ -1,3 +1,4 @@
+---
 # This is an example playbook to execute Ansible tests.
 
 - name: Verify
@@ -22,4 +23,3 @@
   - name: Assert Vector validate config
     assert:
       that: "'{{ vector_validate.rc }}' == '0'"
-  

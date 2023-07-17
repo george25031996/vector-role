@@ -1,7 +1,8 @@
+---
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: podman
 platforms:
   - name: ubuntu22-latest
     hostname: ubuntu
@@ -16,3 +17,12 @@ provisioner:
   name: ansible
 verifier:
   name: ansible
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - converge
+    - idempotence
+    - verify
+    - destroy
+

@@ -1,5 +1,24 @@
 ---
-# defaults file for vector-role
-clickhouse_user: glisikh
-clickhouse_password: glisikh
-clickhouse_host: ip-address
+vector_url: https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-1.x86_64.rpm
+# Указать для vector_conf_endpoint ['hostname'] сервера с БД clickhouse
+vector_conf_endpoint: http://127.0.0.1:8123
+vector_version: 0.21.1
+vector_config:
+  sources:
+      our_log:
+        ignore_older_secs: 600
+        include:
+          - /var/log/nginx/access.log
+        read_from: beginning
+        type: file
+  sinks:
+    to_clickhouse:
+      type: clickhouse
+      inputs:
+        - our_log
+      database: logs
+      endpoint: "{{ vector_conf_endpoint }}"
+      table: access_logs
+      compression: gzip
+      healthcheck: false
+      skip_unknown_fields: true

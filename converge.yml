@@ -1,7 +1,7 @@
 ---
-- name: Converge
+- name: Converge playbook
   hosts: all
   tasks:
-    - name: "Include vector_role"
+    - name: Include vector-role
       include_role:
-        name: "vector_role"
+        name: "vector-role"

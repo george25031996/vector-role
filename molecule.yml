@@ -1,8 +1,12 @@
 ---
 dependency:
   name: galaxy
+  options:
+    ignore-certs: True
+    ignore-errors: True
+    role-file: molecule/requirements.yml
 driver:
-  name: podman
+  name: docker
 platforms:
   - name: centos
     image: docker.io/pycontribs/centos:8

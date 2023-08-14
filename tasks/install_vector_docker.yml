@@ -1,0 +1,22 @@
+---
+# Install Vector
+- name: VECTOR | Install rpm
+  ansible.builtin.yum:
+    name: "{{ vector_url }}"
+    state: present
+    disable_gpg_check: yes
+- name: VECTOR | Template config
+  ansible.builtin.template:
+    src: templates/vector.yml.j2
+    dest: /etc/vector/vector.yml
+    mode: "0644"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_gid }}"
+    validate: vector validate --no-environment --config-yaml %s
+- name: Put docker package on hold
+  ansible.builtin.shell: >
+         ps aux | pgrep -f vector
+         || echo -n HOLDED
+         && vector --config /etc/vector/vector.yml > /dev/null 2>&1 &
+  register: vector_hold
+  changed_when: vector_hold.stdout == 'HOLDED'

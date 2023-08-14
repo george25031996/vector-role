@@ -4,4 +4,4 @@
   tasks:
     - name: "Include roles_vector"
       include_role:
-        name: "roles-vector"
+        name: vector-role

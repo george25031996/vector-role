@@ -7,7 +7,7 @@
     disable_gpg_check: yes
 - name: VECTOR | Template config
   ansible.builtin.template:
-    src: templates/vector.yml.j2
+    src: templates/vector.j2
     dest: /etc/vector/vector.yml
     mode: "0644"
     owner: "{{ ansible_user_id }}"
